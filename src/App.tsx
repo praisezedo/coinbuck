@@ -1,12 +1,12 @@
 // src/App.tsx
 import Header from "./components/Header";
-// import Hero from "./components/Hero";
+import Hero from "./components/Hero";
 
 export default function App() {
   return (
     <>
       <Header />
-      {/* <Hero /> */}
+      <Hero />
     </>
   );
 }

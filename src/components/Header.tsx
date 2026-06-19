@@ -1,11 +1,30 @@
-// src/components/Navbar.tsx
-
+import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
-import coinbuckmascot  from "../assets/coinbuck-mascot.png";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import coinbuckMarcot from "../assets/coinbuck-mascot.png";
 
+gsap.registerPlugin(useGSAP);
 export default function Header() {
+
+    const headerRef = useRef<HTMLElement | null>(null);
+
+  useGSAP(() => {
+    gsap.fromTo(
+      headerRef.current,
+      { y: -100, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        delay: 1.8,
+        ease: "power4.out",
+      }
+    );
+  });
+
   return (
-    <header className="fixed left-0 top-0 z-50 w-full px-4 pt-4">
+    <header ref={headerRef} className="fixed left-0 top-0 z-50 w-full px-4 pt-4">
       <nav
         className="
           mx-auto
@@ -26,7 +45,7 @@ export default function Header() {
         {/* Logo */}
         <a href="#home" className="flex items-center gap-3">
           <img
-            src={coinbuckmascot}
+            src={coinbuckMarcot}
             alt="CoinBuck mascot"
             className="
               h-14
@@ -69,7 +88,7 @@ export default function Header() {
             href="#how"
             className="transition-colors duration-300 hover:text-[#D4AF37]"
           >
-            How It Works
+           Steps
           </a>
 
           <a
