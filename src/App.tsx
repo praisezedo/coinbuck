@@ -2,6 +2,7 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Vision from "./components/Vision";
+import Steps from "./components/Steps";
 
 export default function App() {
   return (
@@ -10,6 +11,7 @@ export default function App() {
       <Hero />
       <About />
       <Vision />
+      <Steps/>
     </main>
   );
 }
