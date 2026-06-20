@@ -53,11 +53,7 @@ export default function Hero() {
       })
         .to(
           ".drop-coin",
-          {
-            scaleX: 1.18,
-            scaleY: 0.82,
-            duration: 0.08,
-          },
+          { scaleX: 1.18, scaleY: 0.82, duration: 0.08 },
           "-=0.12"
         )
         .to(".drop-coin", {
