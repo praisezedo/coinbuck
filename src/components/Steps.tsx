@@ -1,15 +1,12 @@
 import { useRef } from "react";
-import {steps} from "../constants/steps";
+import { steps } from "../constants/steps";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
-import FloatingCoins from "./FloatingCoins";
-import stepMascot from "../assets/coinbuck-marcot-steps.png";
+import stepMascot from "../assets/coinbuck-marcot-steps.webp";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
-
-
 
 export default function Steps() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -57,6 +54,21 @@ export default function Steps() {
           "-=0.75"
         )
         .fromTo(
+          ".trade-limit-card",
+          {
+            y: 40,
+            opacity: 0,
+            scale: 0.94,
+          },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.65,
+          },
+          "-=0.35"
+        )
+        .fromTo(
           ".step-mascot-card",
           {
             x: isDesktop ? 80 : 0,
@@ -100,27 +112,25 @@ export default function Steps() {
     <section
       ref={sectionRef}
       id="how"
-      className="relative overflow-hidden bg-white px-4 py-28"
+      className="relative overflow-hidden bg-white px-4 py-20 sm:py-24 lg:py-28"
     >
-      <FloatingCoins />
-
-      <div className="relative z-10 mx-auto max-w-7xl">
+      <div className="relative z-10 mx-auto max-w-7xl 2xl:max-w-[1440px]">
         <div className="how-heading mx-auto max-w-3xl text-center">
           <p className="mb-4 inline-flex rounded-full border border-[#D4AF37]/40 bg-white/85 px-4 py-2 text-sm font-medium text-[#6A3B19] shadow-sm backdrop-blur">
             How it works
           </p>
 
-          <h2 className="text-4xl font-black leading-tight tracking-tight text-[#2B1207] md:text-6xl">
+          <h2 className="text-3xl font-black sm:text-4xl leading-tight tracking-tight text-[#2B1207] md:text-6xl">
             Five steps. Zero confusion.
           </h2>
 
-          <p className="mt-6 text-lg leading-8 text-[#6F5A4A]">
+          <p className="mt-5 text-base leading-7 sm:mt-6 sm:text-lg sm:leading-8 text-[#6F5A4A]">
             No app download. No complicated setup. Everything happens inside
             WhatsApp — the platform you already use every day.
           </p>
         </div>
 
-        <div className="mt-20 grid items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="mt-12 grid items-center sm:mt-16 lg:mt-20 gap-10 md:gap-14 lg:gap-16 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="relative">
             <div className="absolute left-5 top-6 h-[calc(100%-3rem)] w-px bg-[#E8D7B8]" />
 
@@ -135,9 +145,9 @@ export default function Steps() {
                 return (
                   <div
                     key={step.title}
-                    className="step-card group relative ml-12 overflow-hidden rounded-4xl border border-[#D4AF37]/25 bg-[#2B1207] p-5 shadow-[0_25px_70px_rgba(43,18,7,0.22)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_90px_rgba(212,175,55,0.18)]"
+                    className="step-card group relative ml-9 sm:ml-12 overflow-hidden rounded-4xl border border-[#D4AF37]/25 bg-[#2B1207] p-5 shadow-[0_25px_70px_rgba(43,18,7,0.22)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_90px_rgba(212,175,55,0.18)]"
                   >
-                    <div className="absolute -left-13 top-8 z-20 flex h-10 w-10 items-center justify-center rounded-full border-4 border-white bg-[#D4AF37] text-sm font-black text-white shadow-[0_0_22px_rgba(212,175,55,0.5)]">
+                    <div className="absolute -left-10 top-8 sm:-left-13 z-20 flex h-10 w-10 items-center justify-center rounded-full border-4 border-white bg-[#D4AF37] text-sm font-black text-white shadow-[0_0_22px_rgba(212,175,55,0.5)]">
                       {index + 1}
                     </div>
 
@@ -147,7 +157,7 @@ export default function Steps() {
                       0{index + 1}
                     </span>
 
-                    <div className="relative z-10 flex gap-4">
+                    <div className="relative z-10 flex flex-col gap-4 sm:flex-row">
                       <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#D4AF37] text-[#2B1207] shadow-[0_0_24px_rgba(212,175,55,0.35)]">
                         <Icon size={23} />
                       </div>
@@ -173,6 +183,21 @@ export default function Steps() {
                   </div>
                 );
               })}
+
+              <div className="trade-limit-card ml-9 sm:ml-12 overflow-hidden rounded-4xl border border-[#D4AF37]/30 bg-[#2B1207] p-6 shadow-[0_25px_70px_rgba(43,18,7,0.22)]">
+                <p className="text-xs font-black uppercase tracking-[0.25em] text-[#D4AF37]">
+                  Trading Limit
+                </p>
+
+                <h3 className="mt-2 text-3xl font-black text-[#F4D03F]">
+                  $5 – $100,000 daily
+                </h3>
+
+                <p className="mt-3 text-sm leading-6 text-[#F7E8C8]/85">
+                  CoinBuck supports crypto trades from $5 up to $100,000 worth
+                  of any supported coin per day.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -182,10 +207,12 @@ export default function Steps() {
             <div className="relative p-6">
               <img
                 src={stepMascot}
-               loading="lazy"
-              decoding="async"
+                loading="lazy"
+                decoding="async"
                 alt="CoinBuck mascot explaining five steps"
-                className="step-mascot w-75 object-contain drop-shadow-[0_30px_70px_rgba(43,18,7,0.18)] md:w-115"
+                width={1536}
+                height={1024}
+                className="step-mascot w-64 sm:w-75 object-contain drop-shadow-[0_30px_70px_rgba(43,18,7,0.18)] md:w-115"
               />
 
               <div className="absolute -left-4 bottom-8 rounded-2xl border border-[#E8D7B8] bg-white px-4 py-3 shadow-xl">

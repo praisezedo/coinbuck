@@ -2,10 +2,14 @@ import { useRef } from "react";
 import { ArrowUpRight } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import coinbuckMarcot from "../assets/coinbuck-mascot.png";
+import coinbuckMarcot from "../assets/coinbuck-mascot.webp";
 
 gsap.registerPlugin(useGSAP);
-export default function Header() {
+
+type HeaderProps = {
+  onTradeClick?: () => void;
+};
+export default function Header({ onTradeClick }: HeaderProps) {
 
     const headerRef = useRef<HTMLElement | null>(null);
 
@@ -24,7 +28,7 @@ export default function Header() {
   });
 
   return (
-    <header ref={headerRef} className="fixed left-0 top-0 z-50 w-full px-4 pt-4">
+    <header ref={headerRef} className="fixed left-0 top-0 z-50 w-full px-2 pt-2 sm:px-4 sm:pt-4">
       <nav
         className="
           mx-auto
@@ -36,8 +40,10 @@ export default function Header() {
           border
           border-[#E8D7B8]
           bg-white/75
-          px-6
-          py-3
+          px-3
+          sm:px-6
+          py-2
+          sm:py-3
           shadow-[0_10px_40px_rgba(0,0,0,0.08)]
           backdrop-blur-xl
         "
@@ -47,18 +53,19 @@ export default function Header() {
           <img
             src={coinbuckMarcot}
             alt="CoinBuck mascot"
-             loading="lazy"
+             loading="eager"
               decoding="async"
-            className="
-              h-14
-              w-auto
+               className="
+                 h-11 
+                 sm:h-14
+                 w-auto
               object-contain
               drop-shadow-[0_8px_20px_rgba(0,0,0,0.18)]
             "
           />
 
           {/* Optional brand text */}
-          <div className="hidden md:flex flex-col leading-none">
+          <div className="hidden sm:flex flex-col leading-none">
             <span className="text-lg font-bold">
               <span className="text-[#2B1207]">Coin</span>
               <span className="text-[#D4AF37]">Buck</span>
@@ -71,7 +78,7 @@ export default function Header() {
         </a>
 
         {/* Nav Links */}
-        <div className="hidden items-center gap-8 text-sm font-medium text-[#5F4A3A] md:flex">
+        <div className="hidden items-center gap-5 text-sm font-medium text-[#5F4A3A] lg:flex xl:gap-8">
           <a
             href="#about"
             className="transition-colors duration-300 hover:text-[#D4AF37]"
@@ -109,29 +116,13 @@ export default function Header() {
         </div>
 
         {/* CTA */}
-        <a
-          href="https://wa.me/2349094985193?text=I%20want%20to%20trade"
-          className="
-            flex
-            items-center
-            gap-2
-            rounded-full
-            bg-[#2B1207]
-            px-5
-            py-3
-            text-sm
-            font-semibold
-            text-white
-            transition-all
-            duration-300
-            hover:scale-105
-            hover:bg-[#3A1A0C]
-            hover:shadow-[0_8px_25px_rgba(43,18,7,0.25)]
-          "
-        >
-          Trade Now
-          <ArrowUpRight size={16} />
-        </a>
+      <button
+        onClick={onTradeClick}
+        className="inline-flex items-center gap-2 rounded-full bg-[#2B1207] px-7 py-4 font-semibold text-white shadow-[0_18px_40px_rgba(43,18,7,0.25)] transition hover:scale-105"
+      >
+        Trade Now 
+        <ArrowUpRight size={16}/>
+      </button>
       </nav>
     </header>
   );

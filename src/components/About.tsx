@@ -4,8 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { cards } from "../constants/about";
-import aboutMascot from "../assets/coinbuck-mascot-about.png";
-import FloatingCoins from "./FloatingCoins";
+import aboutMascot from "../assets/coinbuck-mascot-about.webp";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -25,58 +24,45 @@ export default function About() {
         scrollTrigger: {
           trigger: aboutRef.current,
           start: "top 70%",
+          once: true,
         },
         defaults: { ease: "power4.out" },
       });
 
-tl.from(".about-mascot-card", {
-  x: window.innerWidth >= 1024 ? -90 : 0,
-  y: window.innerWidth < 1024 ? -80 : 0,
-  opacity: 0,
-  scale: 0.92,
-  duration: 0.9,
-})
-        .from(
+      tl.fromTo(
+        ".about-mascot-card",
+        {
+          x: window.innerWidth >= 1024 ? -90 : 0,
+          y: window.innerWidth < 1024 ? -50 : 0,
+          opacity: 0,
+          scale: 0.92,
+        },
+        { x: 0, y: 0, opacity: 1, scale: 1, duration: 0.9 }
+      )
+        .fromTo(
           ".about-heading",
-          {
-            y: 50,
-            opacity: 0,
-            duration: 0.8,
-          },
+          { y: 50, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.8 },
           "-=0.55"
         )
-        .from(
+        .fromTo(
           ".about-text",
-          {
-            y: 35,
-            opacity: 0,
-            duration: 0.7,
-            stagger: 0.12,
-          },
+          { y: 35, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.7, stagger: 0.12 },
           "-=0.4"
         )
-        .from(
+        .fromTo(
           ".pain-pill",
-          {
-            y: 25,
-            opacity: 0,
-            scale: 0.95,
-            duration: 0.5,
-            stagger: 0.08,
-          },
+          { y: 25, opacity: 0, scale: 0.95 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.08 },
           "-=0.35"
         )
-        .from(
+        .fromTo(
           ".about-card",
-          {
-            y: 40,
-            opacity: 0,
-            duration: 0.65,
-            stagger: 0.12,
-          },
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.65, stagger: 0.12 },
           "-=0.25"
         );
-
       gsap.to(".about-mascot", {
         y: -12,
         duration: 2.4,
@@ -101,21 +87,21 @@ tl.from(".about-mascot-card", {
     <section
       ref={aboutRef}
       id="about"
-      className="relative overflow-hidden bg-transparent px-4 py-28"
+      className="relative overflow-hidden bg-transparent px-4 py-20 sm:py-24 lg:py-28"
     >
-        <FloatingCoins/>
-
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-[0.95fr_1.05fr]">
+      <div className="relative z-10 mx-auto grid max-w-7xl 2xl:max-w-360 items-center gap-10 md:gap-14 lg:gap-16 lg:grid-cols-[0.95fr_1.05fr]">
         <div className="order-2 relative flex justify-center lg:order-1 lg:justify-start">
           <div className="about-spark absolute right-16 top-8 h-32 w-32 rounded-full blur-3xl" />
 
-          <div className="about-mascot-card relative rounded-[3rem] bg-white/80 p-6 backdrop-blur-md">
+          <div className="about-mascot-card relative rounded-4xl bg-white/80 p-4 sm:rounded-[3rem] sm:p-6 backdrop-blur-md">
             <img
               src={aboutMascot}
               loading="lazy"
               decoding="async"
               alt="CoinBuck mascot teaching"
-              className="about-mascot w-70 object-contain drop-shadow-[0_30px_60px_rgba(43,18,7,0.18)] md:w-107.5"
+              width={1024}
+              height={1024}
+              className="about-mascot w-64 object-contain sm:w-80 drop-shadow-[0_30px_60px_rgba(43,18,7,0.18)] md:w-107.5"
             />
 
             <div className="absolute -right-4 bottom-10 rounded-2xl border border-[#E8D7B8] bg-white px-4 py-3 shadow-xl">
@@ -132,11 +118,11 @@ tl.from(".about-mascot-card", {
             What we’re all about
           </p>
 
-          <h2 className="about-heading max-w-3xl text-4xl font-black leading-tight tracking-tight text-[#2B1207] md:text-6xl">
+          <h2 className="about-heading max-w-3xl text-3xl sm:text-4xl font-black leading-tight tracking-tight text-[#2B1207] md:text-6xl">
             Crypto Built For Everyday Africans.
           </h2>
 
-          <div className="mt-8 space-y-5 text-lg leading-8 text-[#6F5A4A]">
+          <div className="mt-6 space-y-4 text-base leading-7 sm:mt-8 sm:space-y-5 sm:text-lg sm:leading-8 text-[#6F5A4A]">
             <p className="about-text">
               CoinBuck was born out of a simple frustration — crypto in Nigeria
               and across Africa is harder than it needs to be.
@@ -164,7 +150,7 @@ tl.from(".about-mascot-card", {
             </p>
           </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2 lg:grid-cols-3">
             {cards.map((card) => {
               const Icon = card.icon;
 

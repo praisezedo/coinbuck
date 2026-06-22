@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 import mascotVideo from "../assets/coin-buck-marcot - animation.mp4";
+import mascotPoster from "../assets/coinbuck-mascot.webp";
 import btc from "../assets/coin-btc.png";
 import eth from "../assets/coin-eth.png";
 import usdt from "../assets/coin-usdt.png";
@@ -15,12 +16,28 @@ gsap.registerPlugin(useGSAP);
 
 const splashCoins = [btc, eth, usdt, sol, naira, btc, usdt, eth];
 
-export default function Hero() {
+type HeroProps = {
+  onTradeClick?: () => void;
+};
+
+export default function Hero({ onTradeClick }: HeroProps) {
   const heroRef = useRef<HTMLElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useGSAP(
     () => {
+      const isMobile = window.innerWidth < 768;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (reduceMotion) {
+        gsap.set([".hero-copy > *", ".mascot-wrap", ".floating-bg-coin"], {
+          clearProps: "all",
+          opacity: 1,
+        });
+        gsap.set([".drop-coin", ".coin-splash", ".impact-ring"], { display: "none" });
+        return;
+      }
+
       gsap.set(".hero-copy > *", { y: 55, opacity: 0 });
       gsap.set(".mascot-wrap", { x: -90, opacity: 0, scale: 0.94 });
       gsap.set(".coin-splash", { scale: 0, opacity: 0 });
@@ -33,9 +50,9 @@ export default function Hero() {
       });
 
       gsap.to(".floating-bg-coin", {
-        y: "random(-18, 18)",
-        x: "random(-12, 12)",
-        rotate: "random(-8, 8)",
+        y: isMobile ? "random(-6, 6)" : "random(-18, 18)",
+        x: isMobile ? "random(-4, 4)" : "random(-12, 12)",
+        rotate: isMobile ? "random(-3, 3)" : "random(-8, 8)",
         duration: "random(3, 5)",
         repeat: -1,
         yoyo: true,
@@ -83,8 +100,8 @@ export default function Hero() {
           {
             scale: 1,
             opacity: 0.9,
-            x: () => gsap.utils.random(-260, 260),
-            y: () => gsap.utils.random(-160, 160),
+            x: () => gsap.utils.random(isMobile ? -110 : -260, isMobile ? 110 : 260),
+            y: () => gsap.utils.random(isMobile ? -80 : -160, isMobile ? 80 : 160),
             rotate: () => gsap.utils.random(-220, 220),
             duration: 0.65,
             stagger: 0.03,
@@ -157,7 +174,7 @@ export default function Hero() {
     <section
       ref={heroRef}
       id="home"
-      className="relative min-h-screen overflow-hidden bg-white px-4 pt-28"
+      className="relative min-h-svh overflow-hidden bg-white px-4 pb-12 pt-24 sm:pt-28 lg:pb-0"
     >
       <FloatingCoins />
 
@@ -178,44 +195,49 @@ export default function Hero() {
         />
       ))}
 
-      <div className="relative z-30 mx-auto grid min-h-[calc(100vh-7rem)] max-w-7xl items-center gap-8 md:grid-cols-[0.9fr_1.1fr]">
-        <div className="mascot-wrap relative flex justify-center">
+      <div className="relative z-30 mx-auto grid min-h-[calc(100svh-6rem)] max-w-7xl items-center gap-8 py-8 lg:grid-cols-[0.9fr_1.1fr] lg:py-0 2xl:max-w-360">
+        <div className="mascot-wrap relative mx-auto flex w-fit justify-center">
           <video
             ref={videoRef}
             src={mascotVideo}
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
+            poster={mascotPoster}
             onTimeUpdate={handleVideoTimeUpdate}
-            className="w-65 rounded-4xl object-contain md:w-107.5"
+            className="relative z-10 w-56 rounded-4xl object-contain sm:w-72 md:w-88 lg:w-107.5"
           />
+
+          <p className="absolute bottom-0 right-0 z-30 flex min-h-10 min-w-40 items-center justify-center rounded-tl-2xl bg-[#2B1207] px-4 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-[#F4D03F] shadow-[-8px_-8px_24px_rgba(43,18,7,0.18)] sm:min-h-12 sm:min-w-48 sm:px-5 sm:text-xs">
+            Swift . Secure . Seamless
+          </p>
         </div>
 
-        <div className="hero-copy text-center md:text-left">
-          <p className="inline-flex rounded-full border border-[#D4AF37]/40 bg-white px-4 py-2 text-sm font-medium text-[#6A3B19] shadow-sm">
+        <div className="hero-copy text-center lg:text-left">
+          <p className="inline-flex justify-center rounded-full border border-[#D4AF37]/40 bg-white px-4 py-2 text-sm font-medium text-[#6A3B19] shadow-sm">
             Swift • Secure • Seamless
           </p>
 
-          <h1 className="mt-5 text-5xl font-black leading-[0.95] tracking-tight text-[#2B1207] md:text-7xl">
+          <h1 className="mt-5 text-4xl font-black leading-[0.98] tracking-tight text-[#2B1207] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
             Convert Crypto To Naira In Minutes.
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-8 text-[#6F5A4A]">
+          <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-[#6F5A4A] sm:mt-6 sm:text-lg sm:leading-8 lg:mx-0">
             Fast, fair and human crypto exchange for everyday Africans. No
             hidden fees. No confusion. Just one WhatsApp message.
           </p>
 
-          <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row md:items-start">
-            <a
-              href="https://wa.me/2349094985193?text=I%20want%20to%20trade"
-              className="inline-flex items-center gap-2 rounded-full bg-[#2B1207] px-7 py-4 font-semibold text-white shadow-[0_18px_40px_rgba(43,18,7,0.25)] transition hover:scale-105"
+          <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center lg:justify-start">
+            <button
+              onClick={onTradeClick}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#2B1207] px-7 py-4 font-semibold text-white shadow-[0_18px_40px_rgba(43,18,7,0.25)] transition hover:scale-105"
             >
-              Trade on WhatsApp <ArrowUpRight size={18} />
-            </a>
+              Trade On WhatsApp <ArrowUpRight size={18} />
+            </button>
 
             <a
               href="#how"
-              className="inline-flex rounded-full border border-[#D4AF37]/50 bg-white px-7 py-4 font-semibold text-[#2B1207] transition hover:scale-105"
+              className="inline-flex justify-center rounded-full border border-[#D4AF37]/50 bg-white px-7 py-4 font-semibold text-[#2B1207] transition hover:scale-105"
             >
               See How It Works
             </a>

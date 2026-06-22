@@ -1,5 +1,55 @@
 @import "tailwindcss";
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+  background: #fff;
+}
+
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+.floating-coin-image {
+  width: var(--coin-size);
+  height: var(--coin-size);
+}
+
+@media (max-width: 767px) {
+  .floating-coin {
+    --coin-parallax: 8px !important;
+    opacity: 0.35 !important;
+  }
+
+  .floating-coin-image {
+    width: calc(var(--coin-size) * 0.58);
+    height: calc(var(--coin-size) * 0.58);
+  }
+
+  .animate-float-3d {
+    animation-duration: 18s !important;
+  }
+
+  .animate-coin-spin {
+    animation-duration: 24s !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }

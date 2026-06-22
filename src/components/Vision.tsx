@@ -4,8 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { pillars } from "../constants/vision";
-import visionImage from "../assets/coinbuck-marcot-vision.png";
-import FloatingCoins from "./FloatingCoins";
+import visionImage from "../assets/coinbuck-marcot-vision.webp";
 import { ArrowUpRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -91,28 +90,26 @@ useGSAP(
     <section
       ref={visionRef}
       id="vision"
-      className="relative overflow-hidden bg-white px-4 py-28"
+      className="relative overflow-hidden bg-white px-4 py-20 sm:py-24 lg:py-28"
     >
-      <FloatingCoins />
-
-      <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1fr_1fr]">
+      <div className="relative z-10 mx-auto grid max-w-7xl 2xl:max-w-[1440px] items-center gap-14 lg:grid-cols-[1fr_1fr]">
         <div className="vision-copy">
           <p className="mb-4 inline-flex rounded-full border border-[#D4AF37]/40 bg-white/85 px-4 py-2 text-sm font-medium text-[#6A3B19] shadow-sm backdrop-blur">
             Vision we are building for Africa
           </p>
 
-          <h2 className="max-w-3xl text-4xl font-black leading-tight tracking-tight text-[#2B1207] md:text-6xl">
+          <h2 className="max-w-3xl text-3xl sm:text-4xl font-black leading-tight tracking-tight text-[#2B1207] md:text-6xl">
             Our Pan-African Vision.
           </h2>
 
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-[#6F5A4A]">
+          <p className="mt-5 max-w-2xl text-base leading-7 sm:mt-6 sm:text-lg sm:leading-8 text-[#6F5A4A]">
             We’re building the most trusted bridge between crypto and everyday
             life across Africa — starting in Nigeria, and scaling into a
             continent where anyone can buy, sell, earn and spend cryptocurrency
             for real products and services as easily as sending a text.
           </p>
 
-          <div className="mt-9 grid sm:grid-cols-2 lg:grid-cols-1 gap-4">
+          <div className="mt-7 grid gap-4 sm:mt-9 sm:grid-cols-2 lg:grid-cols-1">
             {pillars.map((pillar) => {
               const Icon = pillar.icon;
 
@@ -162,7 +159,9 @@ useGSAP(
               loading="lazy"
               decoding="async"
               alt="CoinBuck Pan-African crypto vision"
-              className="w-[320px] rounded-[2.5rem] object-cover md:w-130"
+              width={1024}
+              height={1024}
+              className="w-[280px] rounded-[2rem] object-cover sm:w-[360px] sm:rounded-[2.5rem] md:w-120 lg:w-130"
             />
 
             <div className="absolute bottom-6 right-6 rounded-2xl border border-[#D4AF37]/40 bg-white/90 px-4 py-3 shadow-xl backdrop-blur">

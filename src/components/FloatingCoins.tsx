@@ -1,12 +1,13 @@
 import { useEffect, useRef } from "react";
-import {COINS} from "../constants/coin";
+import { COINS } from "../constants/coin";
 
 export default function FloatingCoins() {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || !window.matchMedia("(pointer: fine)").matches) return;
+
     let raf = 0;
     const onMove = (e: PointerEvent) => {
       const x = e.clientX / window.innerWidth - 0.5;
@@ -17,7 +18,8 @@ export default function FloatingCoins() {
         el.style.setProperty("--my", String(y));
       });
     };
-    window.addEventListener("pointermove", onMove);
+
+    window.addEventListener("pointermove", onMove, { passive: true });
     return () => {
       window.removeEventListener("pointermove", onMove);
       cancelAnimationFrame(raf);
@@ -28,7 +30,7 @@ export default function FloatingCoins() {
     <div
       ref={ref}
       aria-hidden
-      className="pointer-events-none fixed inset-0 overflow-hidden z-0"
+      className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
       style={{
         ["--mx" as never]: 0,
         ["--my" as never]: 0,
@@ -38,15 +40,18 @@ export default function FloatingCoins() {
       {COINS.map((c, i) => (
         <div
           key={i}
-          className="absolute will-change-transform"
+          className={`floating-coin absolute will-change-transform ${i > 7 ? "hidden sm:block" : ""}`}
           style={{
             top: c.top,
             left: c.left,
-            transform: `translate3d(calc(var(--mx) * ${c.depth * 60}px), calc(var(--my) * ${c.depth * 60}px), 0)`,
+            ["--coin-parallax" as never]: `${c.depth * 60}px`,
+            ["--coin-size" as never]: `${c.size}px`,
+            transform:
+              "translate3d(calc(var(--mx) * var(--coin-parallax)), calc(var(--my) * var(--coin-parallax)), 0)",
             transition: "transform 600ms cubic-bezier(.2,.8,.2,1)",
             opacity: c.opacity,
             filter: c.blur ? `blur(${c.blur}px)` : undefined,
-          }}
+          } as React.CSSProperties}
         >
           <div
             className="animate-float-3d"
@@ -69,7 +74,7 @@ export default function FloatingCoins() {
                 alt=""
                 width={c.size}
                 height={c.size}
-                style={{ width: c.size, height: c.size }}
+                className="floating-coin-image"
                 loading="lazy"
                 decoding="async"
                 draggable={false}

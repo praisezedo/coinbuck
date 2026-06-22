@@ -1,10 +1,17 @@
-import { Phone, ArrowUpRight, ShieldCheck, Clock3, BadgeDollarSign, Headphones } from "lucide-react";
+import {
+  Phone,
+  ArrowUpRight,
+  ShieldCheck,
+  Clock3,
+  BadgeDollarSign,
+  Headphones,
+} from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
 
-import ctaMascot from "../assets/coinbuck-mascot-cta section.png";
+import ctaMascot from "../assets/coinbuck-mascot-cta-section.webp";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -25,9 +32,17 @@ const trustItems = [
     icon: ShieldCheck,
     text: "Secure Transactions",
   },
+  {
+    icon: BadgeDollarSign,
+    text: "$5 – $100,000 daily trades",
+  },
 ];
 
-export default function CTA() {
+type CTAProps = {
+    onTradeClick?: () => void;
+};
+
+export default function CTA({ onTradeClick }: CTAProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
 
   useGSAP(
@@ -52,11 +67,7 @@ export default function CTA() {
         }
       ).fromTo(
         ".trust-pill",
-        {
-          y: 25,
-          opacity: 0,
-          scale: 0.95,
-        },
+        { y: 25, opacity: 0, scale: 0.95 },
         {
           y: 0,
           opacity: 1,
@@ -116,32 +127,31 @@ export default function CTA() {
     <section
       ref={sectionRef}
       id="contact"
-      className="relative overflow-hidden bg-[#FFF9EE] px-4 py-28"
+      className="relative overflow-hidden bg-[#FFF9EE] px-4 py-20 sm:py-24 lg:py-28"
     >
-      <div className="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
-        {/* LEFT */}
+      <div className="mx-auto grid max-w-7xl 2xl:max-w-360 items-center gap-10 md:gap-14 lg:gap-16 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="cta-copy">
           <p className="inline-flex rounded-full border border-[#D4AF37]/30 bg-white px-4 py-2 text-sm font-medium text-[#6A3B19] shadow-sm">
             Ready To Start?
           </p>
 
-          <h2 className="mt-5 text-5xl font-black leading-tight text-[#2B1207] md:text-7xl">
+          <h2 className="mt-5 text-4xl sm:text-5xl font-black leading-tight text-[#2B1207] md:text-7xl">
             Convert Crypto To Naira With Confidence.
           </h2>
 
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-[#6F5A4A]">
+          <p className="mt-5 max-w-2xl text-base leading-7 sm:mt-6 sm:text-lg sm:leading-8 text-[#6F5A4A]">
             Join thousands of Nigerians using CoinBuck to exchange crypto
             quickly, securely and transparently.
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <a
-              href="https://wa.me/2349094985193?text=I%20want%20to%20trade"
+            <button
+              onClick={onTradeClick}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-[#2B1207] px-8 py-4 font-semibold text-white shadow-[0_18px_40px_rgba(43,18,7,0.25)] transition hover:scale-105"
             >
               Trade on WhatsApp
               <ArrowUpRight size={18} />
-            </a>
+            </button>
 
             <a
               href="tel:+2349076248151"
@@ -161,10 +171,7 @@ export default function CTA() {
                   key={item.text}
                   className="trust-pill flex items-center gap-2 rounded-full border border-[#E8D7B8] bg-white px-4 py-2 shadow-sm"
                 >
-                  <Icon
-                    size={16}
-                    className="text-[#D4AF37]"
-                  />
+                  <Icon size={16} className="text-[#D4AF37]" />
                   <span className="text-sm font-medium text-[#2B1207]">
                     {item.text}
                   </span>
@@ -174,16 +181,17 @@ export default function CTA() {
           </div>
         </div>
 
-        {/* RIGHT */}
         <div className="cta-mascot-wrap relative flex justify-center lg:justify-end">
-          <div className="cta-glow absolute h-87.5 w-87.5 rounded-full bg-[#D4AF37]/20 blur-[90px]" />
+          <div className="cta-glow absolute h-64 w-64 sm:h-87.5 sm:w-87.5 rounded-full bg-[#D4AF37]/20 blur-[90px]" />
 
           <img
             src={ctaMascot}
             loading="lazy"
-              decoding="async"
+            decoding="async"
             alt="CoinBuck mascot"
-            className="cta-mascot relative z-10 w-80 object-contain md:w-120"
+            width={1536}
+            height={1024}
+            className="cta-mascot relative z-10 w-64 sm:w-80 object-contain md:w-120"
           />
         </div>
       </div>
