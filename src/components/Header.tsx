@@ -47,6 +47,8 @@ export default function Header() {
           <img
             src={coinbuckMarcot}
             alt="CoinBuck mascot"
+             loading="lazy"
+              decoding="async"
             className="
               h-14
               w-auto

@@ -1,11 +1,5 @@
 import { useRef } from "react";
-import {
-  MessageCircle,
-  Coins,
-  Wallet,
-  ShieldCheck,
-  Landmark,
-} from "lucide-react";
+import {steps} from "../constants/steps";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -15,38 +9,7 @@ import stepMascot from "../assets/coinbuck-marcot-steps.png";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const steps = [
-  {
-    icon: MessageCircle,
-    title: "Message Us on WhatsApp",
-    text: "Open a conversation with a real CoinBuck agent in seconds. No bots, no forms, no waiting.",
-    note: "Takes less than 10 seconds",
-  },
-  {
-    icon: Coins,
-    title: "Tell Us What You Want",
-    text: "Let us know your coin and amount — USDT, BTC, ETH, and more. We give you a live rate upfront.",
-    note: "Real-time rate disclosed upfront",
-  },
-  {
-    icon: Wallet,
-    title: "Send Your Crypto",
-    text: "We give you a secure, verified wallet address. Send from TrustWallet, Binance, Bybit or anywhere.",
-    note: "Secure verified address",
-  },
-  {
-    icon: ShieldCheck,
-    title: "We Confirm On-Chain",
-    text: "Our team verifies your transaction on the blockchain and sends confirmation quickly.",
-    note: "Blockchain verified",
-  },
-  {
-    icon: Landmark,
-    title: "Receive Your Money",
-    text: "Naira lands straight in your bank account — GTBank, Zenith, Access, Opay, Palmpay.",
-    note: "Direct bank payout",
-  },
-];
+
 
 export default function Steps() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -219,6 +182,8 @@ export default function Steps() {
             <div className="relative p-6">
               <img
                 src={stepMascot}
+               loading="lazy"
+              decoding="async"
                 alt="CoinBuck mascot explaining five steps"
                 className="step-mascot w-75 object-contain drop-shadow-[0_30px_70px_rgba(43,18,7,0.18)] md:w-115"
               />

@@ -1,60 +1,42 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { metrics } from "../constants/metrics";
+import { reviews } from "../constants/reviews";
 
 gsap.registerPlugin(useGSAP);
-
-const metrics = [
-  {
-    value: "12,000+",
-    label: "Satisfied Traders",
-  },
-  {
-    value: "₦500M+",
-    label: "Processed Volume",
-  },
-  {
-    value: "4.9/5",
-    label: "Customer Rating",
-  },
-  {
-    value: "Same Day",
-    label: "Payout Speed",
-  },
-];
-
-const reviews = [
-  {
-    name: "David A.",
-    review:
-      "Fastest crypto-to-naira service I've used. The support team was incredibly helpful.",
-  },
-  {
-    name: "Esther O.",
-    review:
-      "Transparent rates and no hidden charges. Exactly what crypto trading should feel like.",
-  },
-  {
-    name: "Michael K.",
-    review:
-      "Received my payment in minutes. Smooth experience from start to finish.",
-  },
-  {
-    name: "Samuel E.",
-    review:
-      "The WhatsApp process makes everything easy. No unnecessary complexity.",
-  },
-  {
-    name: "Ada N.",
-    review:
-      "Professional service. I now recommend CoinBuck to my friends.",
-  },
-];
 
 export default function Reviews() {
   const sectionRef = useRef<HTMLElement | null>(null);
 useGSAP(
   () => {
+
+    gsap.utils.toArray<HTMLElement>(".metric-number").forEach((el) => {
+  const value = Number(el.dataset.value);
+  const prefix = el.dataset.prefix || "";
+  const suffix = el.dataset.suffix || "";
+
+  const counter = { val: 0 };
+
+  gsap.to(counter, {
+    val: value,
+    duration: 1.8,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: el,
+      start: "top 85%",
+      once: true,
+    },
+    onUpdate: () => {
+      const current =
+        value % 1 !== 0
+          ? counter.val.toFixed(1)
+          : Math.floor(counter.val).toLocaleString();
+
+      el.textContent = `${prefix}${current}${suffix}`;
+    },
+  });
+});
     gsap.fromTo(
       ".metrics-heading > *",
       { y: 45, opacity: 0 },
@@ -164,10 +146,14 @@ useGSAP(
                 key={metric.label}
                 className="metric-card rounded-4xl border border-[#D4AF37]/20 bg-[#3A1A0C]/60 p-8 backdrop-blur-md"
                 >
-                <h3 className="text-4xl font-black text-[#D4AF37]">
-                  {metric.value}
+                <h3
+                className="metric-number text-4xl font-black text-[#D4AF37]"
+                data-value={metric.value}
+                data-prefix={metric.prefix || ""}
+                data-suffix={metric.suffix || ""}
+                >
+                {metric.prefix || ""}0{metric.suffix || ""}
                 </h3>
-
                 <p className="mt-3 text-sm font-medium text-[#F7E8C8]">
                   {metric.label}
                 </p>

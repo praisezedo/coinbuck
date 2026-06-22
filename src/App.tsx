@@ -5,6 +5,7 @@ import Vision from "./components/Vision";
 import Steps from "./components/Steps";
 import Reviews from "./components/Reviews";
 import CTA from "./components/CTA";
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
       <Steps/>
       <Reviews/>
       <CTA />
+      <Footer />
     </main>
   );
 }

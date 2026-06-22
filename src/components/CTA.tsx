@@ -180,6 +180,8 @@ export default function CTA() {
 
           <img
             src={ctaMascot}
+            loading="lazy"
+              decoding="async"
             alt="CoinBuck mascot"
             className="cta-mascot relative z-10 w-80 object-contain md:w-120"
           />

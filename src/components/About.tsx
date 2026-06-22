@@ -1,9 +1,9 @@
 import { useRef } from "react";
-import { CheckCircle2, Headphones, ShieldCheck, Zap } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-
+import { cards } from "../constants/about";
 import aboutMascot from "../assets/coinbuck-mascot-about.png";
 import FloatingCoins from "./FloatingCoins";
 
@@ -14,24 +14,6 @@ const painPoints = [
   "Sketchy platforms",
   "Money disappearing",
   "No one to call",
-];
-
-const cards = [
-  {
-    icon: Zap,
-    title: "Fast Conversion",
-    text: "Crypto-to-naira transactions made quick, simple and stress-free.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Transparent Rates",
-    text: "No surprises, no fine print. You see the rate before you trade.",
-  },
-  {
-    icon: Headphones,
-    title: "Human Support",
-    text: "Real CoinBuck agents guide you through the process on WhatsApp.",
-  },
 ];
 
 export default function About() {
@@ -130,6 +112,8 @@ tl.from(".about-mascot-card", {
           <div className="about-mascot-card relative rounded-[3rem] bg-white/80 p-6 backdrop-blur-md">
             <img
               src={aboutMascot}
+              loading="lazy"
+              decoding="async"
               alt="CoinBuck mascot teaching"
               className="about-mascot w-70 object-contain drop-shadow-[0_30px_60px_rgba(43,18,7,0.18)] md:w-107.5"
             />

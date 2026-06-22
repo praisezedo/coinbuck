@@ -1,34 +1,16 @@
 import { useRef } from "react";
-import { ArrowUpRight, Globe2, ShieldCheck, Zap } from "lucide-react";
+
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-
+import { pillars } from "../constants/vision";
 import visionImage from "../assets/coinbuck-marcot-vision.png";
 import FloatingCoins from "./FloatingCoins";
+import { ArrowUpRight } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const pillars = [
-  {
-    icon: Zap,
-    number: "01",
-    title: "Solve Accessibility",
-    text: "Make crypto simple and usable for everyone — not just traders and tech insiders. If you can use WhatsApp, you can use CoinBuck.",
-  },
-  {
-    icon: ShieldCheck,
-    number: "02",
-    title: "Rebuild Trust",
-    text: "Become the name Africans recommend to their parents, friends and business partners — the platform they’d stake their reputation on.",
-  },
-  {
-    icon: Globe2,
-    number: "03",
-    title: "Power a New Economy",
-    text: "Launch Buck Pay — where merchants accept crypto, freelancers get paid in crypto and families receive remittances without losing to middlemen.",
-  },
-];
+
 
 export default function Vision() {
   const visionRef = useRef<HTMLElement | null>(null);
@@ -177,6 +159,8 @@ useGSAP(
           <div className="vision-visual relative overflow-hidden rounded-[3rem] p-3 backdrop-blur-md">
             <img
               src={visionImage}
+              loading="lazy"
+              decoding="async"
               alt="CoinBuck Pan-African crypto vision"
               className="w-[320px] rounded-[2.5rem] object-cover md:w-130"
             />
