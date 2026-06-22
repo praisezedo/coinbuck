@@ -3,6 +3,7 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Vision from "./components/Vision";
 import Steps from "./components/Steps";
+import Reviews from "./components/Reviews";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
       <About />
       <Vision />
       <Steps/>
+      <Reviews/>
     </main>
   );
 }
