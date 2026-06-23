@@ -140,7 +140,7 @@ export default function CTA({ onTradeClick }: CTAProps) {
           </h2>
 
           <p className="mt-5 max-w-2xl text-base leading-7 sm:mt-6 sm:text-lg sm:leading-8 text-[#6F5A4A]">
-            Join thousands of Nigerians using CoinBuck to exchange crypto
+            Join Hundreds of Nigerians using CoinBuck to exchange crypto
             quickly, securely and transparently.
           </p>
 

@@ -114,7 +114,7 @@ export default function Steps() {
       id="how"
       className="relative overflow-hidden bg-white px-4 py-20 sm:py-24 lg:py-28"
     >
-      <div className="relative z-10 mx-auto max-w-7xl 2xl:max-w-[1440px]">
+      <div className="relative z-10 mx-auto max-w-7xl 2xl:max-w-360">
         <div className="how-heading mx-auto max-w-3xl text-center">
           <p className="mb-4 inline-flex rounded-full border border-[#D4AF37]/40 bg-white/85 px-4 py-2 text-sm font-medium text-[#6A3B19] shadow-sm backdrop-blur">
             How it works
