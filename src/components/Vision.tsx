@@ -1,138 +1,251 @@
 import { useRef } from "react";
-
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { pillars } from "../constants/vision";
-import visionImage from "../assets/coinbuck-marcot-vision.webp";
-import { ArrowUpRight } from "lucide-react";
+import coinbuckMascot from "../assets/coinbuck-mascot.webp";
+import { ArrowUpRight, ShieldCheck } from "lucide-react";
+
+// Import your downloaded SVG map asset
+import AfricaMapSVG from "../assets/africa.svg";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
-
-
 
 export default function Vision() {
   const visionRef = useRef<HTMLElement | null>(null);
 
-useGSAP(
-  () => {
-    const ctx = gsap.context(() => {
+  useGSAP(
+    () => {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (reduceMotion) {
+        gsap.set([".v-title", ".v-map", ".v-line", ".v-node-base", ".v-end-mascot", ".v-stagger", ".v-card"], {
+          opacity: 1, y: 0, scale: 1, strokeDashoffset: 0
+        });
+        return;
+      }
+
+      // --- INITIAL RESET STATES ---
+      gsap.set(".v-title", { y: "100%", rotateX: -20 });
+      gsap.set(".v-map", { opacity: 0, scale: 0.95 });
+      gsap.set(".v-line", { strokeDashoffset: 300 });
+      gsap.set(".v-node-base", { scale: 0, opacity: 0 });
+      gsap.set(".v-end-mascot", { scale: 0, opacity: 0, y: 15 });
+      gsap.set([".v-stagger", ".v-card"], { y: 40, opacity: 0 });
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: visionRef.current,
           start: "top 75%",
           once: true,
-          markers: false,
         },
         defaults: { ease: "power4.out" },
       });
 
-      tl.fromTo(
-        ".vision-copy > *",
-        { y: 45, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.75,
-          stagger: 0.12,
-        }
-      )
-        .fromTo(
-          ".vision-card",
-          { y: 40, opacity: 0, scale: 0.96 },
-          {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.65,
-            stagger: 0.12,
-          },
-          "-=0.35"
-        )
-        .fromTo(
-          ".vision-visual",
-          { x: 80, opacity: 0, scale: 0.92 },
-          {
-            x: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.9,
-          },
-          "-=0.75"
-        );
+      // 1. Cinematic Header Reveal
+      tl.to(".v-title", {
+        y: "0%",
+        rotateX: 0,
+        duration: 1.2,
+        stagger: 0.1,
+        ease: "expo.out",
+      })
+      // 2. Full-Width Map Container Reveal
+      .to(".v-map", {
+        opacity: 1,
+        scale: 1,
+        duration: 1.4,
+        ease: "power3.out",
+      }, "-=0.5")
+      // 3. Root Mascot Settles Down Exactly onto Nigeria
+      .to(".v-node-base", {
+        scale: 1,
+        opacity: 1,
+        duration: 0.9,
+        ease: "back.out(1.5)",
+      }, "-=0.6")
+      // 4. Gold Financial Trust Network Lines Draw Out From Base Hub
+      .to(".v-line", {
+        strokeDashoffset: 0,
+        duration: 2,
+        stagger: 0.18,
+        ease: "power3.inOut",
+      }, "-=0.3")
+      // 5. Verification Mascots Fade into Network Endpoints
+      .to(".v-end-mascot", {
+        scale: 1,
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: "back.out(1.5)",
+      }, "-=0.5")
+      // 6. Remaining Structural Pillars Smoothly Slide Up Underneath
+      .to(".v-stagger", {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.1,
+      }, "-=0.4")
+      .to(".v-card", {
+        y: 0,
+        opacity: 1,
+        duration: 0.7,
+        stagger: 0.08,
+      }, "-=0.6");
 
-      gsap.to(".vision-visual", {
-        y: -14,
-        duration: 3,
+      // Stable Glow Cycle (Premium subtle ambient lighting, NO bouncing)
+      gsap.to(".v-root-glow", {
+        opacity: 0.4,
+        scale: 1.4,
+        duration: 2.5,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
       });
-
-      gsap.to(".vision-glow", {
-        scale: 1.18,
-        opacity: 0.5,
-        duration: 1.8,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-
-      ScrollTrigger.refresh();
-    }, visionRef);
-
-    return () => ctx.revert();
-  },
-  { scope: visionRef }
-);
+    },
+    { scope: visionRef }
+  );
 
   return (
     <section
       ref={visionRef}
       id="vision"
-      className="relative overflow-hidden bg-white px-4 py-20 sm:py-24 lg:py-28"
+      className="relative w-full bg-[#1A0B05] px-4 py-20 sm:py-24 lg:py-32 text-[#FFF3CF] overflow-hidden"
+      style={{ perspective: "1600px" }}
     >
-      <div className="relative z-10 mx-auto grid max-w-7xl 2xl:max-w-[1440px] items-center gap-14 lg:grid-cols-[1fr_1fr]">
-        <div className="vision-copy">
-          <p className="mb-4 inline-flex rounded-full border border-[#D4AF37]/40 bg-white/85 px-4 py-2 text-sm font-medium text-[#6A3B19] shadow-sm backdrop-blur">
-            Vision we are building for Africa
-          </p>
+      <div className="mx-auto max-w-7xl w-full flex flex-col items-center">
+        
+        {/* HEADER BLOCK */}
+        <div className="w-full text-center mb-12">
+          <div className="overflow-hidden inline-block mb-3">
+            <p className="v-title inline-flex rounded-full border border-[#D4AF37]/30 bg-white/5 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-[#D4AF37] backdrop-blur">
+              The CoinBuck Network Ecosystem
+            </p>
+          </div>
+          <div className="overflow-hidden py-2">
+            <h2 className="v-title text-4xl sm:text-5xl md:text-7xl font-black tracking-tight leading-none text-[#FFFDF9]">
+              Our Pan-African Vision.
+            </h2>
+          </div>
+        </div>
 
-          <h2 className="max-w-3xl text-3xl sm:text-4xl font-black leading-tight tracking-tight text-[#2B1207] md:text-6xl">
-            Our Pan-African Vision.
-          </h2>
+        {/* SCREEN-WIDE CANVAS VISUAL SYSTEM */}
+        <div className="v-map w-full max-w-5xl aspect-16/10 relative flex items-center justify-center my-4 bg-black/15 rounded-[2.5rem] overflow-hidden">
+          
+          <div className="relative w-full h-full p-4 sm:p-12 flex items-center justify-center">
+            
+            {/* The Clear Country-Border Detailed SVG Map Layer */}
+            <div className="absolute inset-0 w-full h-full flex items-center justify-center p-6 opacity-30 mix-blend-screen text-[#ffc400]">
+              <img 
+                src={AfricaMapSVG} 
+                alt="Detailed Africa Wireframe Map" 
+                className="w-full h-full mix-blend-screen object-contain select-none pointer-events-none filter sepia hue-rotate-15 brightness-110"
+              />
+            </div>
 
-          <p className="mt-5 max-w-2xl text-base leading-7 sm:mt-6 sm:text-lg sm:leading-8 text-[#6F5A4A]">
-            We’re building the most trusted bridge between crypto and everyday
-            life across Africa — starting in Nigeria, and scaling into a
-            continent where anyone can buy, sell, earn and spend cryptocurrency
-            for real products and services as easily as sending a text.
-          </p>
+            {/* OVERLAID PROGRAMMATIC TRUST NETWORK (SVG OVERLAY FOR GSAP LINES) */}
+            <svg
+              viewBox="0 0 400 400"
+              className="absolute inset-0 w-full h-full z-10 pointer-events-none"
+              fill="none"
+            >
+              {/* Network Streams sprouting out directly from the base coordinates */}
+              <path d="M150 145 Q200 240 210 320" stroke="#D4AF37" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="300" className="v-line" />
+              <path d="M150 145 Q240 160 310 210" stroke="#D4AF37" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="300" className="v-line" />
+              <path d="M150 145 Q190 90 260 75" stroke="#D4AF37" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="300" className="v-line" />
+              <path d="M150 145 Q260 260 340 305" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" strokeDasharray="300" className="v-line" />
+            </svg>
 
-          <div className="mt-7 grid gap-4 sm:mt-9 sm:grid-cols-2 lg:grid-cols-1">
+            {/* BASE FOUNDATION HUB: Mascot Fixed Directly Over Nigeria Coordinate Marker */}
+            <div className="v-node-base absolute left-[34%] top-[31%] z-30 flex flex-col items-center pointer-events-none origin-bottom">
+              <div className="relative flex flex-col items-center">
+                
+                {/* Clean, Non-bouncing Mascot Wrapper */}
+                <div className="relative z-10 p-1.5 rounded-2xl shadow-xl transition-transform duration-300">
+                  <img src={coinbuckMascot} alt="CoinBuck Nigeria Hub Mascot" className="w-14 h-14 sm:w-20 sm:h-20 object-contain" />
+                </div>
+                
+                {/* Nigeria Label Underneath */}
+                <div className="mt-2 whitespace-nowrap rounded-lg bg-[#D4AF37] px-2.5 py-0.5 text-[10px] font-black text-[#1A0B05] uppercase tracking-wider shadow-md">
+                  Nigeria Base Hub 🇳🇬
+                </div>
+
+                {/* Pure Ambient Glow Ring Aura */}
+                <div className="v-root-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-[#D4AF37]/20 blur-xl pointer-events-none" />
+              </div>
+            </div>
+
+            {/* NETWORK ENDPOINT VERIFICATION BADGES (MASCOTS POP UP AFTER LINES CONNECT) */}
+            {/* South Africa Region Endpoint */}
+            <div className="v-end-mascot absolute left-[50%] top-[78%] z-20 flex items-center gap-1.5 p-1.5 rounded-xl shadow-lg">
+              <img src={coinbuckMascot} alt="CoinBuck Secure Node" className="w-6 h-6 object-contain" />
+              <ShieldCheck size={12} className="text-[#D4AF37]" />
+            </div>
+
+            {/* East Africa Region Endpoint */}
+            <div className="v-end-mascot absolute left-[74%] top-[50%] z-20 flex items-center gap-1.5 p-1.5 rounded-xl shadow-lg">
+              <img src={coinbuckMascot} alt="CoinBuck Secure Node" className="w-6 h-6 object-contain" />
+              <ShieldCheck size={12} className="text-[#D4AF37]" />
+            </div>
+
+            {/* North Africa Region Endpoint */}
+            <div className="v-end-mascot absolute left-[62%] top-[16%] z-20 flex items-center gap-1.5 p-1.5 rounded-xl shadow-lg">
+              <img src={coinbuckMascot} alt="CoinBuck Secure Node" className="w-6 h-6 object-contain" />
+              <ShieldCheck size={12} className="text-[#D4AF37]" />
+            </div>
+
+            {/* Madagascar Island Target Endpoint */}
+            <div className="v-end-mascot absolute left-[82%] top-[74%] z-20 flex items-center gap-1.5 p-1.5 rounded-xl shadow-lg">
+              <img src={coinbuckMascot} alt="CoinBuck Secure Node" className="w-6 h-6 object-contain" />
+              <ShieldCheck size={12} className="text-[#D4AF37]" />
+            </div>
+
+          </div>
+        </div>
+
+        {/* BOTTOM CONTENT AREA: Storytelling Descriptions followed by Benefit Cards Grid */}
+        <div className="w-full grid gap-12 lg:grid-cols-[0.95fr_1.05fr] items-start mt-12">
+          
+          {/* Detailed Narrative Copy */}
+          <div className="space-y-6">
+            <p className="v-stagger text-base sm:text-lg leading-relaxed text-[#FFF3CF]/90">
+              We’re building the most trusted bridge between crypto and everyday
+              life across Africa — starting in Nigeria, and scaling into a
+              continent where anyone can buy, sell, earn and spend cryptocurrency
+              for real products and services as easily as sending a text.
+            </p>
+            <p className="v-stagger text-sm text-[#FFF3CF]/60 leading-relaxed">
+              Every connection beam across the CoinBuck network map map represents a fully compliant liquidity bridge. By pairing verified security structures with direct local settlement, we handle transactions with institutional-grade protection.
+            </p>
+            <div className="v-stagger pt-2">
+              <a
+                href="#how"
+                className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/50 bg-[#D4AF37] px-7 py-4 font-bold text-[#1A0B05] shadow-md transition-all hover:bg-[#FFF3CF] hover:scale-[1.02]"
+              >
+                See how CoinBuck works <ArrowUpRight size={18} />
+              </a>
+            </div>
+          </div>
+
+          {/* Core Solution Pillars */}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 w-full">
             {pillars.map((pillar) => {
               const Icon = pillar.icon;
-
               return (
                 <div
                   key={pillar.title}
-                  className="vision-card group rounded-3xl border border-[#E8D7B8] bg-white/85 p-5 shadow-[0_18px_50px_rgba(43,18,7,0.06)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(43,18,7,0.1)]"
+                  className="v-card rounded-3xl border border-[#D4AF37]/15 bg-[#25120A] p-5 shadow-xl hover:border-[#D4AF37]/30 transition-colors"
                 >
                   <div className="flex gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#FFF3CF] text-[#D4AF37]">
-                      <Icon size={23} />
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#1A0B05] text-[#D4AF37] border border-[#D4AF37]/10">
+                      <Icon size={40} />
                     </div>
-
                     <div>
-                      <p className="text-xs font-black tracking-[0.25em] text-[#D4AF37]">
-                        {pillar.number}
-                      </p>
-
-                      <h3 className="mt-1 text-xl font-black text-[#2B1207]">
+                      <h3 className="text-lg font-black text-[#FFFDF9]">
                         {pillar.title}
                       </h3>
-
-                      <p className="mt-2 text-sm leading-6 text-[#6F5A4A]">
+                      <p className="mt-2 text-xs sm:text-sm leading-6 text-[#FFF3CF]/70">
                         {pillar.text}
                       </p>
                     </div>
@@ -142,34 +255,9 @@ useGSAP(
             })}
           </div>
 
-          <a
-            href="#how"
-            className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/50 bg-white/90 px-6 py-4 font-semibold text-[#2B1207] shadow-sm transition hover:scale-105"
-          >
-            See how CoinBuck works <ArrowUpRight size={18} />
-          </a>
+     
         </div>
 
-        <div className="relative flex justify-center lg:justify-end">
-          <div className="vision-glow absolute inset-10 rounded-full  blur-[90px]" />
-
-          <div className="vision-visual relative overflow-hidden rounded-[3rem] p-3 backdrop-blur-md">
-            <img
-              src={visionImage}
-              loading="lazy"
-              decoding="async"
-              alt="CoinBuck Pan-African crypto vision"
-              width={1024}
-              height={1024}
-              className="w-[280px] rounded-[2rem] object-cover sm:w-[360px] sm:rounded-[2.5rem] md:w-120 lg:w-130"
-            />
-
-            <div className="absolute bottom-6 right-6 rounded-2xl border border-[#D4AF37]/40 bg-white/90 px-4 py-3 shadow-xl backdrop-blur">
-              <p className="text-xs font-medium text-[#6F5A4A]">Starting from</p>
-              <p className="text-lg font-black text-[#2B1207]">Nigeria → Africa</p>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

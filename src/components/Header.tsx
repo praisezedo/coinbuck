@@ -118,7 +118,7 @@ export default function Header({ onTradeClick }: HeaderProps) {
         {/* CTA */}
       <button
         onClick={onTradeClick}
-        className="inline-flex items-center gap-2 rounded-full bg-[#2B1207] px-7 py-4 font-semibold text-white shadow-[0_18px_40px_rgba(43,18,7,0.25)] transition hover:scale-105"
+        className="inline-flex hover:cursor-pointer items-center gap-2 rounded-full bg-[#2B1207] px-7 py-4 font-semibold text-white shadow-[0_18px_40px_rgba(43,18,7,0.25)] transition hover:scale-105"
       >
         Trade Now 
         <ArrowUpRight size={16}/>

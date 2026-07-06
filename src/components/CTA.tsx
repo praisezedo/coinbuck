@@ -5,6 +5,7 @@ import {
   Clock3,
   BadgeDollarSign,
   Headphones,
+  Mail,
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -159,6 +160,14 @@ export default function CTA({ onTradeClick }: CTAProps) {
             >
               <Phone size={18} />
               Give Us A Call
+            </a>
+
+            <a 
+            href="mailto:coinbuckex@gmail.com"
+             className="inline-flex items-center justify-center gap-2 rounded-full border border-[#D4AF37]/40 bg-white px-8 py-4 font-semibold text-[#2B1207] transition hover:scale-105"
+            >
+              < Mail size={18}/>
+              Send Us An Email
             </a>
           </div>
 

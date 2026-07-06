@@ -1,4 +1,4 @@
-import { ArrowUpRight, Phone, MessageCircle } from "lucide-react";
+import { ArrowUpRight, Phone, MessageCircle, Mail } from "lucide-react";
 import coinbuckLogo from "../assets/coinbuck-logo.webp";
 import { links } from "../constants/links";
 
@@ -63,7 +63,13 @@ export default function Footer() {
               <Phone size={16} />
               +234 907 624 8151
             </a>
-     
+             <a 
+             href="mailto:coinbuckex@gmail.com"
+              className="flex items-center gap-2 text-sm text-[#F7E8C8] transition hover:text-[#D4AF37]"
+             >
+              <Mail size={16} />
+              coinbuckex@gmail.com
+            </a>
           </div>
         </div>
       </div>
