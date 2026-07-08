@@ -28,7 +28,7 @@ export default function Vision() {
       // --- INITIAL RESET STATES ---
       gsap.set(".v-title", { y: "100%", rotateX: -20 });
       gsap.set(".v-map", { opacity: 0, scale: 0.95 });
-      gsap.set(".v-line", { strokeDashoffset: 300 });
+      gsap.set(".v-line", { strokeDashoffset: 500 });
       gsap.set(".v-node-base", { scale: 0, opacity: 0 });
       gsap.set(".v-end-mascot", { scale: 0, opacity: 0, y: 15 });
       gsap.set([".v-stagger", ".v-card"], { y: 40, opacity: 0 });
@@ -120,7 +120,7 @@ export default function Vision() {
         <div className="w-full text-center mb-12">
           <div className="overflow-hidden inline-block mb-3">
             <p className="v-title inline-flex rounded-full border border-[#D4AF37]/30 bg-white/5 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-[#D4AF37] backdrop-blur">
-              The CoinBuck Network Ecosystem
+               CoinBuck's Vision 
             </p>
           </div>
           <div className="overflow-hidden py-2">
@@ -136,7 +136,7 @@ export default function Vision() {
           <div className="relative w-full h-full p-4 sm:p-12 flex items-center justify-center">
             
             {/* The Clear Country-Border Detailed SVG Map Layer */}
-            <div className="absolute inset-0 w-full h-full flex items-center justify-center p-6 opacity-30 mix-blend-screen text-[#ffc400]">
+            <div className="absolute inset-0 w-full h-full flex items-center justify-center  opacity-30 mix-blend-screen text-[#ffc400]">
               <img 
                 src={AfricaMapSVG} 
                 alt="Detailed Africa Wireframe Map" 
@@ -144,70 +144,88 @@ export default function Vision() {
               />
             </div>
 
-            {/* OVERLAID PROGRAMMATIC TRUST NETWORK (SVG OVERLAY FOR GSAP LINES) */}
+            {/* OVERLAID PROGRAMMATIC TRUST NETWORK (SVG VALUES CALIBRATED TO PERCENT VALUE VIEWPORT) */}
             <svg
-              viewBox="0 0 400 400"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
               className="absolute inset-0 w-full h-full z-10 pointer-events-none"
               fill="none"
             >
-              {/* Network Streams sprouting out directly from the base coordinates */}
-              <path d="M150 145 Q200 240 210 320" stroke="#D4AF37" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="300" className="v-line" />
-              <path d="M150 145 Q240 160 310 210" stroke="#D4AF37" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="300" className="v-line" />
-              <path d="M150 145 Q190 90 260 75" stroke="#D4AF37" strokeWidth="2.5" strokeLinecap="round" strokeDasharray="300" className="v-line" />
-              <path d="M150 145 Q260 260 340 305" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" strokeDasharray="300" className="v-line" />
+              {/* Streams start at Nigeria coordinates (X:37, Y:43) and span directly to internal node endpoints */}
+              {/* To North Africa Endpoint */}
+              <path d="M 37 43 Q 48 30 58 26" stroke="#D4AF37" strokeWidth="0.4" strokeLinecap="round" strokeDasharray="500" className="v-line" />
+              
+              {/* To East Africa Endpoint */}
+              <path d="M 37 43 Q 54 48 69 52" stroke="#D4AF37" strokeWidth="0.4" strokeLinecap="round" strokeDasharray="500" className="v-line" />
+              
+              {/* To South Africa Endpoint */}
+              <path d="M 37 43 Q 46 63 53 74" stroke="#D4AF37" strokeWidth="0.4" strokeLinecap="round" strokeDasharray="500" className="v-line" />
+              
+              {/* To Madagascar Island Endpoint */}
+              <path d="M 37 43 Q 60 65 77 74" stroke="#D4AF37" strokeWidth="0.3" strokeLinecap="round" strokeDasharray="500" className="v-line" />
             </svg>
 
             {/* BASE FOUNDATION HUB: Mascot Fixed Directly Over Nigeria Coordinate Marker */}
-            <div className="v-node-base absolute left-[34%] top-[31%] z-30 flex flex-col items-center pointer-events-none origin-bottom">
+            <div className="v-node-base absolute left-[37%] top-[43%] -translate-x-1/2 -translate-y-1/2 z-30 flex flex-col items-center pointer-events-none">
               <div className="relative flex flex-col items-center">
                 
                 {/* Clean, Non-bouncing Mascot Wrapper */}
-                <div className="relative z-10 p-1.5 rounded-2xl shadow-xl transition-transform duration-300">
-                  <img src={coinbuckMascot} alt="CoinBuck Nigeria Hub Mascot" className="w-14 h-14 sm:w-20 sm:h-20 object-contain" />
+                <div className="relative z-10 p-1  rounded-2xl shadow-xl">
+                  <img src={coinbuckMascot} alt="CoinBuck Nigeria Hub Mascot" className="w-10 h-10 sm:w-16 sm:h-16 object-contain" />
                 </div>
                 
                 {/* Nigeria Label Underneath */}
-                <div className="mt-2 whitespace-nowrap rounded-lg bg-[#D4AF37] px-2.5 py-0.5 text-[10px] font-black text-[#1A0B05] uppercase tracking-wider shadow-md">
-                  Nigeria Base Hub 🇳🇬
+                <div className="mt-1.5 whitespace-nowrap rounded-md bg-[#D4AF37] px-2 py-0.5 text-[9px] font-black text-[#1A0B05] uppercase tracking-wider shadow-md">
+                  Nigeria Base 🇳🇬
                 </div>
 
-                {/* Pure Ambient Glow Ring Aura */}
-                <div className="v-root-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-[#D4AF37]/20 blur-xl pointer-events-none" />
+                {/* Ambient Aura */}
+                <div className="v-root-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-[#D4AF37]/15 blur-xl pointer-events-none" />
               </div>
             </div>
 
-            {/* NETWORK ENDPOINT VERIFICATION BADGES (MASCOTS POP UP AFTER LINES CONNECT) */}
-            {/* South Africa Region Endpoint */}
-            <div className="v-end-mascot absolute left-[50%] top-[78%] z-20 flex items-center gap-1.5 p-1.5 rounded-xl shadow-lg">
-              <img src={coinbuckMascot} alt="CoinBuck Secure Node" className="w-6 h-6 object-contain" />
-              <ShieldCheck size={12} className="text-[#D4AF37]" />
+            {/* NETWORK ENDPOINT VERIFICATION BADGES (POSITIONED INTERNALLY OVER THE MAP) */}
+            {/* North Africa Region Endpoint (e.g. Egypt / Libya area border layout) */}
+            <div className="v-end-mascot absolute left-[58%] top-[26%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
+              <div className=" p-1 rounded-xl shadow-lg flex items-center gap-1">
+                <img src={coinbuckMascot} alt="CoinBuck North Node" className="w-6 h-6 sm:w-7 sm:h-7 object-contain" />
+                <ShieldCheck size={12} className="text-[#D4AF37] shrink-0" />
+              </div>
+              <span className="text-[8px] text-[#FFF3CF]/60 font-bold tracking-tight mt-0.5">Node North</span>
             </div>
 
-            {/* East Africa Region Endpoint */}
-            <div className="v-end-mascot absolute left-[74%] top-[50%] z-20 flex items-center gap-1.5 p-1.5 rounded-xl shadow-lg">
-              <img src={coinbuckMascot} alt="CoinBuck Secure Node" className="w-6 h-6 object-contain" />
-              <ShieldCheck size={12} className="text-[#D4AF37]" />
+            {/* East Africa Region Endpoint (e.g. Kenya / East border layout) */}
+            <div className="v-end-mascot absolute left-[69%] top-[52%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
+              <div className=" p-1 rounded-xl shadow-lg flex items-center gap-1">
+                <img src={coinbuckMascot} alt="CoinBuck East Node" className="w-6 h-6 sm:w-7 sm:h-7 object-contain" />
+                <ShieldCheck size={12} className="text-[#D4AF37] shrink-0" />
+              </div>
+              <span className="text-[8px] text-[#FFF3CF]/60 font-bold tracking-tight mt-0.5">Node East</span>
             </div>
 
-            {/* North Africa Region Endpoint */}
-            <div className="v-end-mascot absolute left-[62%] top-[16%] z-20 flex items-center gap-1.5 p-1.5 rounded-xl shadow-lg">
-              <img src={coinbuckMascot} alt="CoinBuck Secure Node" className="w-6 h-6 object-contain" />
-              <ShieldCheck size={12} className="text-[#D4AF37]" />
+            {/* South Africa Region Endpoint (Internal layout boundaries) */}
+            <div className="v-end-mascot absolute left-[53%] top-[74%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
+              <div className=" p-1 rounded-xl shadow-lg flex items-center gap-1">
+                <img src={coinbuckMascot} alt="CoinBuck South Node" className="w-6 h-6 sm:w-7 sm:h-7 object-contain" />
+                <ShieldCheck size={12} className="text-[#D4AF37] shrink-0" />
+              </div>
+              <span className="text-[8px] text-[#FFF3CF]/60 font-bold tracking-tight mt-0.5">Node South</span>
             </div>
 
             {/* Madagascar Island Target Endpoint */}
-            <div className="v-end-mascot absolute left-[82%] top-[74%] z-20 flex items-center gap-1.5 p-1.5 rounded-xl shadow-lg">
-              <img src={coinbuckMascot} alt="CoinBuck Secure Node" className="w-6 h-6 object-contain" />
-              <ShieldCheck size={12} className="text-[#D4AF37]" />
+            <div className="v-end-mascot absolute left-[77%] top-[74%] -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center">
+              <div className=" p-1 rounded-xl shadow-lg flex items-center gap-1">
+                <img src={coinbuckMascot} alt="CoinBuck Island Node" className="w-6 h-6 sm:w-7 sm:h-7 object-contain" />
+                <ShieldCheck size={11} className="text-[#D4AF37] shrink-0" />
+              </div>
+              <span className="text-[8px] text-[#FFF3CF]/60 font-bold tracking-tight mt-0.5">Madagascar</span>
             </div>
 
           </div>
         </div>
 
-        {/* BOTTOM CONTENT AREA: Storytelling Descriptions followed by Benefit Cards Grid */}
+        {/* BOTTOM CONTENT AREA */}
         <div className="w-full grid gap-12 lg:grid-cols-[0.95fr_1.05fr] items-start mt-12">
-          
-          {/* Detailed Narrative Copy */}
           <div className="space-y-6">
             <p className="v-stagger text-base sm:text-lg leading-relaxed text-[#FFF3CF]/90">
               We’re building the most trusted bridge between crypto and everyday
@@ -216,7 +234,7 @@ export default function Vision() {
               for real products and services as easily as sending a text.
             </p>
             <p className="v-stagger text-sm text-[#FFF3CF]/60 leading-relaxed">
-              Every connection beam across the CoinBuck network map map represents a fully compliant liquidity bridge. By pairing verified security structures with direct local settlement, we handle transactions with institutional-grade protection.
+              Every connection beam across the CoinBuck network map represents a fully compliant liquidity bridge. By pairing verified security structures with direct local settlement, we handle transactions with institutional-grade protection.
             </p>
             <div className="v-stagger pt-2">
               <a
@@ -228,7 +246,6 @@ export default function Vision() {
             </div>
           </div>
 
-          {/* Core Solution Pillars */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 w-full">
             {pillars.map((pillar) => {
               const Icon = pillar.icon;
@@ -254,8 +271,6 @@ export default function Vision() {
               );
             })}
           </div>
-
-     
         </div>
 
       </div>

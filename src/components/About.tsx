@@ -271,7 +271,7 @@ export default function About() {
               return (
                 <div
                   key={card.title}
-                  className="about-card-mobile absolute z-20 w-32.5 sm:w-37.5 rounded-2xl border border-[#E8D7B8] bg-white/95 p-3 shadow-[0_12px_30px_rgba(43,18,7,0.12)] backdrop-blur-md pointer-events-auto"
+                  className="about-card-mobile absolute z-20 w-40 sm:w-45 rounded-2xl border border-[#E8D7B8] bg-white/95 p-3 shadow-[0_12px_30px_rgba(43,18,7,0.12)] backdrop-blur-md pointer-events-auto"
                 >
                   <div className="mb-1.5 flex h-7 w-7 items-center justify-center rounded-lg bg-[#FFF3CF] text-[#D4AF37]">
                     <Icon size={14} />

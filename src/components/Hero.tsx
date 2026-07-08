@@ -198,7 +198,7 @@ export default function Hero({ onTradeClick }: HeroProps) {
             <img
               key={index}
               src={coin}
-              alt=""
+              alt="crypto coin"
               className="coin-splash pointer-events-none absolute z-20 h-7 w-7 object-contain drop-shadow-md sm:h-9 sm:w-9"
             />
           ))}
@@ -213,7 +213,7 @@ export default function Hero({ onTradeClick }: HeroProps) {
               preload="metadata"
               poster={mascotPoster}
               onTimeUpdate={handleVideoTimeUpdate}
-              className="w-44  object-contain sm:w-56 md:w-70 lg:w-96"
+              className="w-60  object-contain sm:w-67 md:w-70 lg:w-96"
             />
           </div>
         </div>

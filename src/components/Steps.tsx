@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
+import FloatingCoins from "./FloatingCoins";
 import stepMascot from "../assets/coinbuck-marcot-steps.webp";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -13,97 +14,60 @@ export default function Steps() {
 
   useGSAP(
     () => {
-      const isDesktop = window.innerWidth >= 1024;
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (reduceMotion) {
+        gsap.set([".how-heading > *", ".zigzag-node", ".explanation-box", ".step-line-path", ".step-mascot-card"], {
+          opacity: 1, y: 0, scale: 1, strokeDashoffset: 0
+        });
+        return;
+      }
+
+      // --- PREMIUM ANIMATION TIMELINE ---
+      gsap.set(".how-heading > *", { y: 30, opacity: 0 });
+      gsap.set(".step-line-path", { strokeDashoffset: 1600 });
+      gsap.set(".zigzag-node", { scale: 0, opacity: 0 });
+      gsap.set(".explanation-box", { opacity: 0, y: 15 });
+      gsap.set(".step-mascot-card", { opacity: 0, y: 25 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 70%",
+          start: "top 75%",
           once: true,
         },
         defaults: { ease: "power4.out" },
       });
 
-      tl.fromTo(
-        ".how-heading > *",
-        { y: 45, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.75, stagger: 0.12 }
-      )
-        .fromTo(
-          ".flow-line",
-          { scaleY: 0, transformOrigin: "top center" },
-          { scaleY: 1, duration: 1.25, ease: "power2.inOut" },
-          "-=0.2"
-        )
-        .fromTo(
-          ".step-card",
-          {
-            x: isDesktop ? -45 : 0,
-            y: isDesktop ? 0 : 55,
-            opacity: 0,
-            scale: 0.96,
-          },
-          {
-            x: 0,
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.6,
-            stagger: 0.16,
-          },
-          "-=0.75"
-        )
-        .fromTo(
-          ".trade-limit-card",
-          {
-            y: 40,
-            opacity: 0,
-            scale: 0.94,
-          },
-          {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.65,
-          },
-          "-=0.35"
-        )
-        .fromTo(
-          ".step-mascot-card",
-          {
-            x: isDesktop ? 80 : 0,
-            y: isDesktop ? 0 : 60,
-            opacity: 0,
-            scale: 0.92,
-          },
-          {
-            x: 0,
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.8,
-          },
-          "-=0.85"
-        );
-
-      gsap.to(".step-mascot", {
-        y: -12,
-        rotate: 1.5,
-        duration: 2.5,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-
-      gsap.to(".flow-pulse", {
-        y: () => (window.innerWidth < 1024 ? 690 : 540),
-        opacity: 0,
-        duration: 2.3,
-        repeat: -1,
+      tl.to(".how-heading > *", {
+        y: 0,
+        opacity: 1,
+        duration: 0.7,
+        stagger: 0.1,
+      })
+      .to(".step-line-path", {
+        strokeDashoffset: 0,
+        duration: 1.8,
         ease: "power2.inOut",
-      });
-
-      ScrollTrigger.refresh();
+      }, "-=0.4")
+      .to(".zigzag-node", {
+        scale: 1,
+        opacity: 1,
+        duration: 0.5,
+        stagger: 0.12,
+        ease: "back.out(1.3)",
+      }, "-=1.3")
+      .to(".explanation-box", {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        stagger: 0.12,
+      }, "-=1.0")
+      .to(".step-mascot-card", {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+      }, "-=0.2");
     },
     { scope: sectionRef }
   );
@@ -112,120 +76,123 @@ export default function Steps() {
     <section
       ref={sectionRef}
       id="how"
-      className="relative overflow-hidden bg-white px-4 py-20 sm:py-24 lg:py-28"
+      className="relative bg-transparent px-4 py-16 sm:py-24 lg:py-32 text-[#FFF3CF] overflow-hidden"
     >
-      <div className="relative z-10 mx-auto max-w-7xl 2xl:max-w-360">
-        <div className="how-heading mx-auto max-w-3xl text-center">
-          <p className="mb-4 inline-flex rounded-full border border-[#D4AF37]/40 bg-white/85 px-4 py-2 text-sm font-medium text-[#6A3B19] shadow-sm backdrop-blur">
-            How it works
+      <FloatingCoins />
+
+      <div className="relative z-10 mx-auto max-w-6xl w-full">
+        
+        {/* HEADER SECTION */}
+        <div className="how-heading mx-auto max-w-3xl text-center mb-16 lg:mb-28">
+          <p className="mb-4 inline-flex rounded-full border border-[#D4AF37]/30 bg-white/5 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-[#D4AF37] backdrop-blur">
+            how it works
           </p>
-
-          <h2 className="text-3xl font-black sm:text-4xl leading-tight tracking-tight text-[#2B1207] md:text-6xl">
-            Five steps. Zero confusion.
+          <h2 className="text-3xl font-black sm:text-5xl lg:text-7xl tracking-tight text-[#080600] leading-none">
+            Five Steps. Zero Confusion.
           </h2>
-
-          <p className="mt-5 text-base leading-7 sm:mt-6 sm:text-lg sm:leading-8 text-[#6F5A4A]">
-            No app download. No complicated setup. Everything happens inside
-            WhatsApp — the platform you already use every day.
+          <p className="mt-4 sm:mt-6 text-sm sm:text-lg leading-relaxed text-[#1a1301]/80 max-w-2xl mx-auto">
+            Everything runs fluidly inside WhatsApp. No secondary application friction points.
           </p>
         </div>
 
-        <div className="mt-12 grid items-center sm:mt-16 lg:mt-20 gap-10 md:gap-14 lg:gap-16 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="relative">
-            <div className="absolute left-5 top-6 h-[calc(100%-3rem)] w-px bg-[#E8D7B8]" />
+        {/* FLOWCHART VIEWPORT SYSTEM */}
+        <div className="relative w-full">
+          
+          {/* RESPONSIVE BACKGROUND LINES */}
+          <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
+            {/* Desktop "Z" Path Layer */}
+            <svg viewBox="0 0 1000 1300" fill="none" preserveAspectRatio="none" className="hidden lg:block w-full h-full">
+              <path d="M 500,50 L 200,350 L 800,650 L 200,950 L 500,1250" stroke="#D4AF37" strokeOpacity="0.1" strokeWidth="4" strokeLinecap="round" />
+              <path d="M 500,50 L 200,350 L 800,650 L 200,950 L 500,1250" stroke="#D4AF37" strokeWidth="4" strokeLinecap="round" className="step-line-path" strokeDasharray="1600" />
+            </svg>
 
-            <div className="flow-line absolute left-5 top-6 h-[calc(100%-3rem)] w-0.75 origin-top rounded-full bg-linear-to-b from-[#D4AF37] via-[#F4D03F] to-[#8B5A2B] shadow-[0_0_30px_rgba(212,175,55,0.7)]" />
+            {/* Mobile & Tablet Center Vertical Line (Always Visible) */}
+            <div className="block lg:hidden absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-1">
+              <svg viewBox="0 0 4 100" fill="none" preserveAspectRatio="none" className="w-full h-full">
+                <line x1="2" y1="0" x2="2" y2="100" stroke="#D4AF37" strokeOpacity="0.15" strokeWidth="4" />
+                <line x1="2" y1="0" x2="2" y2="100" stroke="#D4AF37" strokeWidth="4" className="step-line-path" strokeDasharray="1600" />
+              </svg>
+            </div>
+          </div>
 
-            <div className="flow-pulse absolute left-3.25 top-6 h-4 w-4 rounded-full bg-[#F4D03F] shadow-[0_0_30px_rgba(244,208,63,1)]" />
+          {/* LAYOUT CONTAINER */}
+          <div className="relative z-10 flex flex-col gap-16 sm:gap-24 lg:gap-0 lg:h-325 lg:justify-between w-full">
+            {steps.map((step, index) => {
+              const Icon = step.icon;
 
-            <div className="space-y-6">
-              {steps.map((step, index) => {
-                const Icon = step.icon;
+              // Grid mapping configuration values strictly for Desktop viewports
+              const desktopConfigs = [
+                { leftClass: "lg:left-[50%]", textClass: "lg:left-[calc(50%+8rem)] lg:text-left" },   // Step 1: Center
+                { leftClass: "lg:left-[20%]", textClass: "lg:left-[calc(20%+8rem)] lg:text-left" },  // Step 2: Left
+                { leftClass: "lg:left-[80%]", textClass: "lg:right-[calc(20%+8rem)] lg:text-right" }, // Step 3: Right
+                { leftClass: "lg:left-[20%]", textClass: "lg:left-[calc(20%+8rem)] lg:text-left" },  // Step 4: Left
+                { leftClass: "lg:left-[50%]", textClass: "lg:left-[calc(50%+8rem)] lg:text-left" }   // Step 5: Center
+              ][index];
 
-                return (
-                  <div
-                    key={step.title}
-                    className="step-card group relative ml-9 sm:ml-12 overflow-hidden rounded-4xl border border-[#D4AF37]/25 bg-[#2B1207] p-5 shadow-[0_25px_70px_rgba(43,18,7,0.22)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:shadow-[0_30px_90px_rgba(212,175,55,0.18)]"
+              return (
+                <div
+                  key={step.title}
+                  className="relative flex flex-col items-center justify-center lg:block w-full text-center"
+                >
+                  {/* SOLID WHITE CIRCLE NODE */}
+                  <div 
+                    className={`zigzag-node relative lg:absolute top-0 ${desktopConfigs.leftClass} lg:-translate-x-1/2 lg:-translate-y-1/2 shrink-0 w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 rounded-full bg-white shadow-[0_12px_30px_rgba(0,0,0,0.15)] flex flex-col items-center justify-center p-3 sm:p-4 z-20 border border-white mx-auto lg:mx-0`}
                   >
-                    <div className="absolute -left-10 top-8 sm:-left-13 z-20 flex h-10 w-10 items-center justify-center rounded-full border-4 border-white bg-[#D4AF37] text-sm font-black text-white shadow-[0_0_22px_rgba(212,175,55,0.5)]">
-                      {index + 1}
-                    </div>
-
-                    <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-[#D4AF37]/15 blur-2xl transition duration-300 group-hover:bg-[#D4AF37]/25" />
-
-                    <span className="pointer-events-none absolute right-5 top-3 text-7xl font-black text-[#D4AF37]/15">
-                      0{index + 1}
+                    <span className="absolute top-2 sm:top-3.5 text-[7px] sm:text-[8px] font-black tracking-[0.2em] text-[#1A0B05]/40">
+                      PHASE 0{index + 1}
                     </span>
 
-                    <div className="relative z-10 flex flex-col gap-4 sm:flex-row">
-                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#D4AF37] text-[#2B1207] shadow-[0_0_24px_rgba(212,175,55,0.35)]">
-                        <Icon size={23} />
-                      </div>
+                    {/* Gold Icon Box */}
+                    <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#FFF3CF] flex items-center justify-center text-[#D4AF37] mb-1 sm:mb-2 shadow-sm shrink-0">
+                      <Icon className="w-4 h-4 sm:w-5 sm:h-5" strokeWidth={2.5} />
+                    </div>
 
-                      <div>
-                        <p className="text-xs font-black uppercase tracking-[0.25em] text-[#D4AF37]">
-                          Step 0{index + 1}
-                        </p>
+                    {/* Dark Brown Heading Text */}
+                    <h3 className="text-[11px] sm:text-xs lg:text-sm font-black tracking-tight text-[#1A0B05] max-w-[90%] leading-tight">
+                      {step.title}
+                    </h3>
 
-                        <h3 className="mt-1 text-xl font-black text-[#F4D03F]">
-                          {step.title}
-                        </h3>
-
-                        <p className="mt-2 text-sm leading-6 text-[#F7E8C8]">
-                          {step.text}
-                        </p>
-
-                        <p className="mt-4 inline-flex rounded-full border border-[#D4AF37]/30 bg-[#3A1A0C] px-3 py-1 text-xs font-semibold text-[#F4D03F]">
-                          {step.note}
-                        </p>
-                      </div>
+                    {/* Step Count Badge */}
+                    <div className="absolute -bottom-1.5 sm:-bottom-2 bg-[#1A0B05] text-[#FFF3CF] font-black text-[8px] sm:text-[9px] px-2 sm:px-2.5 py-0.5 rounded-full shadow-md">
+                      0{index + 1}
                     </div>
                   </div>
-                );
-              })}
 
-              <div className="trade-limit-card ml-9 sm:ml-12 overflow-hidden rounded-4xl border border-[#D4AF37]/30 bg-[#2B1207] p-6 shadow-[0_25px_70px_rgba(43,18,7,0.22)]">
-                <p className="text-xs font-black uppercase tracking-[0.25em] text-[#D4AF37]">
-                  Trading Limit
-                </p>
+                  {/* PARAGRAPH EXPLANATION BOX */}
+                  <div className={`explanation-box mt-4 lg:mt-0 lg:absolute lg:top-0 lg:-translate-y-1/2 w-full max-w-70 sm:max-w-md mx-auto lg:mx-0 ${desktopConfigs.textClass}`}>
+                    <p className="text-xs sm:text-sm lg:text-base font-bold leading-relaxed text-[#181201]">
+                      {step.text}
+                    </p>
+                    {step.note && (
+                      <span className="mt-1 sm:mt-1.5 inline-block text-[8px] sm:text-[10px] font-bold tracking-wide text-[#D4AF37] bg-[#1A0B05] border border-[#D4AF37]/20 px-2 sm:px-2.5 py-0.5 rounded-full shadow-sm">
+                        {step.note}
+                      </span>
+                    )}
+                  </div>
 
-                <h3 className="mt-2 text-3xl font-black text-[#F4D03F]">
-                  $5 – $100,000 daily
-                </h3>
-
-                <p className="mt-3 text-sm leading-6 text-[#F7E8C8]/85">
-                  CoinBuck supports crypto trades from $5 up to $100,000 worth
-                  of any supported coin per day.
-                </p>
-              </div>
-            </div>
+                </div>
+              );
+            })}
           </div>
 
-          <div className="step-mascot-card relative flex justify-center lg:justify-end">
-            <div className="absolute inset-10 rounded-full bg-[#D4AF37]/20 blur-[90px]" />
+        </div>
 
-            <div className="relative p-6">
-              <img
-                src={stepMascot}
-                loading="lazy"
-                decoding="async"
-                alt="CoinBuck mascot explaining five steps"
-                width={1536}
-                height={1024}
-                className="step-mascot w-64 sm:w-75 object-contain drop-shadow-[0_30px_70px_rgba(43,18,7,0.18)] md:w-115"
-              />
-
-              <div className="absolute -left-4 bottom-8 rounded-2xl border border-[#E8D7B8] bg-white px-4 py-3 shadow-xl">
-                <p className="text-xs font-medium text-[#6F5A4A]">
-                  One message starts it
-                </p>
-                <p className="text-base font-black text-[#2B1207]">
-                  WhatsApp → Naira
-                </p>
-              </div>
+        {/* BOTTOM MASCOT FINISHER */}
+        <div className="mt-20 lg:mt-32 w-full flex justify-center">
+          <div className="step-mascot-card relative p-4 flex flex-col items-center">
+            <img
+              src={stepMascot}
+              loading="lazy"
+              alt="CoinBuck system guide assistant mascot"
+              className="step-mascot w-50 sm:w-70 lg:w-100 object-contain filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
+            />
+            <div className="absolute -left-6 sm:-left-10 bottom-6 sm:bottom-8 rounded-xl sm:rounded-2xl border border-[#D4AF37]/20 bg-[#25120A] px-3 py-2 sm:px-4 sm:py-3 shadow-2xl backdrop-blur">
+              <p className="text-[8px] sm:text-[10px] font-bold tracking-wider text-[#D4AF37] uppercase">Instant Initiation</p>
+              <p className="text-xs sm:text-sm font-black text-[#FFFDF9]">WhatsApp → Settlement</p>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );

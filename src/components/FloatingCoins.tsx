@@ -69,7 +69,7 @@ export default function FloatingCoins() {
     <div
       ref={ref}
       aria-hidden
-      className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+      className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
       style={{
         ["--mx" as never]: 0,
         ["--my" as never]: 0,
