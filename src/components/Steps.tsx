@@ -148,7 +148,7 @@ export default function Steps() {
                     </div>
 
                     {/* Dark Brown Heading Text */}
-                    <h3 className="text-[11px] sm:text-xs lg:text-sm font-black tracking-tight text-[#1A0B05] max-w-[90%] leading-tight">
+                    <h3 className="text-[11px] sm:text-xs lg:text-sm font-black tracking-tight text-[#3a2b01] max-w-[90%] leading-tight">
                       {step.title}
                     </h3>
 
@@ -160,11 +160,11 @@ export default function Steps() {
 
                   {/* PARAGRAPH EXPLANATION BOX */}
                   <div className={`explanation-box mt-4 lg:mt-0 lg:absolute lg:top-0 lg:-translate-y-1/2 w-full max-w-70 sm:max-w-md mx-auto lg:mx-0 ${desktopConfigs.textClass}`}>
-                    <p className="text-xs sm:text-sm lg:text-base font-bold leading-relaxed text-[#181201]">
+                    <p className="text-xs sm:text-sm lg:text-base bg-white/70  font-bold leading-relaxed text-[#3a2b01]">
                       {step.text}
                     </p>
                     {step.note && (
-                      <span className="mt-1 sm:mt-1.5 inline-block text-[8px] sm:text-[10px] font-bold tracking-wide text-[#D4AF37] bg-[#1A0B05] border border-[#D4AF37]/20 px-2 sm:px-2.5 py-0.5 rounded-full shadow-sm">
+                      <span className="mt-1 sm:mt-1.5 inline-block text-[15px] md:text-[17px] font-bold tracking-wide text-[#D4AF37] bg-[#1A0B05] border border-[#D4AF37]/20 px-2 sm:px-2.5 py-0.5 rounded-full shadow-sm">
                         {step.note}
                       </span>
                     )}

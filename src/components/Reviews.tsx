@@ -138,7 +138,7 @@ export default function Reviews() {
               Built on trust.
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-base sm:text-lg text-[#F7E8C8]/90">
-              Thousands of Nigerians trust CoinBuck to convert crypto quickly, securely and transparently.
+              Hundreds of Nigerians trust CoinBuck to convert crypto quickly, securely and transparently.
             </p>
           </div>
 
@@ -156,7 +156,7 @@ export default function Reviews() {
                 >
                   <div>
                     {/* Rolling Slat Window */}
-                    <div className="text-3xl sm:text-4xl font-black text-[#D4AF37] flex items-center overflow-hidden h-12 tracking-tight">
+                    <div className="text-3xl sm:text-4xl font-bold text-[#D4AF37] flex items-center overflow-hidden h-12 tracking-tight">
                       {prefix && <span className="mr-0.5 select-none">{prefix}</span>}
                       
                       {charsArray.map((char, i) => {
@@ -164,7 +164,7 @@ export default function Reviews() {
 
                         if (!isNumber) {
                           return (
-                            <span key={i} className="px-0.5 text-2xl sm:text-3xl font-medium text-[#D4AF37] select-none">
+                            <span key={i} className="px-0.5 text-3xl sm:text-4xl font-bold text-[#D4AF37] select-none">
                               {char}
                             </span>
                           );
@@ -187,7 +187,7 @@ export default function Reviews() {
                         );
                       })}
 
-                      {suffix && <span className="ml-1 text-2xl sm:text-3xl font-bold text-[#D4AF37]/90 select-none">{suffix}</span>}
+                      {suffix && <span className="ml-1 text-3xl sm:text-4xl font-bold text-[#D4AF37]/90  select-none">{suffix}</span>}
                     </div>
 
                     <p className="mt-3 text-sm font-medium text-[#F7E8C8]">
