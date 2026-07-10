@@ -77,7 +77,8 @@ export default function TradeModal({
 
     const message = encodeURIComponent(
       `Hello CoinBuck 🤎
-     My Name is ${name}.
+      
+My Name is ${name}.
      
 I want to trade $${numericAmount.toLocaleString()} worth of ${finalCoin}.
 
