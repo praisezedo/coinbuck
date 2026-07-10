@@ -26,6 +26,7 @@ export default function TradeModal({
   const [customCoin, setCustomCoin] = useState("");
   const [amount, setAmount] = useState("");
   const [error, setError] = useState("");
+  const [name , setName] = useState("");
 
   useEffect(() => {
     if (!isOpen) return;
@@ -76,7 +77,8 @@ export default function TradeModal({
 
     const message = encodeURIComponent(
       `Hello CoinBuck 🤎
-
+     My Name is ${name}.
+     
 I want to trade $${numericAmount.toLocaleString()} worth of ${finalCoin}.
 
 Please assist me with the transaction.`
@@ -100,7 +102,7 @@ Please assist me with the transaction.`
       <div className="relative w-full max-w-lg overflow-hidden rounded-4xl border border-[#D4AF37]/20 bg-white p-6 shadow-2xl">
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-[#FFF5E1]"
+          className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full hover:cursor-pointer bg-[#FFF5E1]"
         >
           <X size={18} />
         </button>
@@ -128,6 +130,20 @@ Please assist me with the transaction.`
         </p>
 
         <div className="mt-6 space-y-5">
+
+          <div>
+            <label className="mb-2 block text-sm font-semibold text-[#2B1207]">
+                Name
+            </label>
+
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter your name"
+              className="w-full rounded-2xl border border-[#E8D7B8] px-4 py-3 outline-none focus:border-[#D4AF37]"
+            />
+          </div>
           <div>
             <label className="mb-2 block text-sm font-semibold text-[#2B1207]">
               Cryptocurrency
@@ -196,7 +212,7 @@ Please assist me with the transaction.`
 
           <button
             onClick={handleTrade}
-            className="flex w-full items-center justify-center gap-2 rounded-full bg-[#2B1207] px-6 py-4 font-semibold text-white transition hover:scale-[1.02]"
+            className="flex w-full hover:cursor-pointer items-center justify-center gap-2 rounded-full bg-[#2B1207] px-6 py-4 font-semibold text-white transition hover:scale-[1.02]"
           >
             Trade Now
             <ArrowUpRight size={18} />
